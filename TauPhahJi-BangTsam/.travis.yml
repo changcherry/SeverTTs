@@ -1,0 +1,24 @@
+dist: focal
+language: node_js
+node_js:
+- '16'
+branches:
+  only:
+  - main
+jobs:
+  include:
+  - name: "check"
+    script:
+      - npm run check
+  - name: "build"
+    script:
+      - npm run build
+    deploy:
+      provider: pages:git
+      fqdn: suisiann.ithuan.tw
+      edge: true
+      cleanup: false
+      local_dir: build/
+      github_token: ${GITHUB_TOKEN}
+      on:
+        branch: main
